@@ -7,6 +7,7 @@ public class WMCommandExecutor {
 		if(loadedWorlds[0] == null && loadedWorlds[1] == null && loadedWorlds[2] == null) {
 			return false;
 		}
+		new WMWorldConfiguration(loadedWorlds);
 		return true;
 	}
 	
@@ -19,7 +20,8 @@ public class WMCommandExecutor {
 		if(worldType.equals(World.Type.DEFAULT_1_1)) {
 			return false;
 		}
-		etc.getServer().loadWorld(name, worldType, seed, generatorSettings);
+		World[] loadedWorlds = etc.getServer().loadWorld(name, worldType, seed, generatorSettings);
+		new WMWorldConfiguration(loadedWorlds);
 		return true;
 	}
 	
