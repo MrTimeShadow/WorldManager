@@ -7,12 +7,12 @@ public class WMWorldConfiguration {
 	
 	public String worldName;
 	private World[] world;
-	public final WMWorldConfigFile conf;
+	public final WMWorldConfigFile configurationFile;
 	
 	public WMWorldConfiguration(World[] world) {
 		this.worldName = world[0].getName();
 		this.world = world;
-		this.conf = new WMWorldConfigFile(world[0].getName());
+		this.configurationFile = new WMWorldConfigFile(world[0].getName());
 		configs.put(worldName, this);
 	}
 

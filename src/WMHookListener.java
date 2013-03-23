@@ -6,10 +6,7 @@ public class WMHookListener extends PluginListener {
 			PlayerLocationsFile.getInstance().addPlayer(player);
 		} else {
 			PlayerLocation pl = PlayerLocationsFile.getInstance().getLocationOf(player);
-			/*World playerWorld = player.getWorld();
-			playerWorld.removePlayerFromWorld(player);*/
 			World[] world = etc.getServer().getWorld(pl.worldName);
-			//world[0].addPlayerToWorld(player);
 			player.switchWorlds(world[World.Dimension.NORMAL.toIndex()]);
 			player.setX(pl.x);
 			player.setY(pl.y);

@@ -12,7 +12,7 @@ public class WMWorldConfigFile {
 	public static HashMap<String, WMWorldConfigFile> worldConfigs = new HashMap<String, WMWorldConfigFile>();
 	
 	private String worldName;
-	public final PropertiesFile configFile;
+	public final PropertiesFile propertiesFile;
 	
 	
 	public WMWorldConfigFile(String worldName) {
@@ -23,7 +23,7 @@ public class WMWorldConfigFile {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		configFile = new PropertiesFile("/worldmanager/worlds/",worldName + ".properties");
+		propertiesFile = new PropertiesFile("/worldmanager/worlds/",worldName + ".properties");
 		worldConfigs.put(worldName, this);
 	}
 	

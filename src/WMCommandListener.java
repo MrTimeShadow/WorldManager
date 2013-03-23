@@ -20,6 +20,7 @@ public class WMCommandListener extends PluginListener {
 					executor.executeLoadWorld(split[2]);
 					break;
 				case "unload":
+					WMWorldManager.getInstance().unloadWorld(etc.getServer().getWorld(split[2]));
 					break;
 					
 				case "create":
@@ -67,7 +68,7 @@ public class WMCommandListener extends PluginListener {
 					}
 					World[] world = etc.getServer().getWorld(split[2]);
 					player.switchWorlds(world[World.Dimension.NORMAL.toIndex()]);
-					int gamemode = WMWorldConfiguration.configs.get(world[0].getName()).conf.configFile.getInt("gamemode");
+					int gamemode = WMWorldConfiguration.configs.get(world[0].getName()).configurationFile.propertiesFile.getInt("gamemode");
 					player.setCreativeMode(gamemode);
 					break;
 				default:
