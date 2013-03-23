@@ -1,5 +1,5 @@
 
-public class WMHookListener extends PluginListener {
+public class WMPlayerListener extends PluginListener {
 
 	public void onLogin(Player player) {
 		if(!PlayerLocationsFile.getInstance().hasPlayer(player)) {
