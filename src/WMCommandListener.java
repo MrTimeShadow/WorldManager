@@ -9,9 +9,10 @@ public class WMCommandListener extends PluginListener {
 			
 			if(split.length == 1) {
 				this.sendHelpMsg(player);
+				return true;
 			}
 			WMCommandExecutor executor = new WMCommandExecutor();
-			
+
 			switch(split[1].toLowerCase()) {
 				case "load":
 					if(split.length < 3) {
