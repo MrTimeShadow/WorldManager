@@ -1,10 +1,8 @@
 
-
-
 public class WMWorldManager {
 	private static WMWorldManager instance = new WMWorldManager();
 	
-	public ODedicatedServer oserver = etc.getServer().getMCServer();
+	public ODedicatedServer oserver = etc.getServer().getMCServer(); //Since update to 1.5.x i get a Compile error, why?
 	
 	private WMWorldManager() {}
 	

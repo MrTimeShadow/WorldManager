@@ -1,3 +1,5 @@
+import java.io.File;
+
 
 public class WMCommandExecutor {
 
@@ -25,12 +27,12 @@ public class WMCommandExecutor {
 		return true;
 	}
 	
-	public boolean executeDeleteWorld(String name) {
-		World[] dimensions = etc.getServer().getWorld(name);
-		for(World w : dimensions) {
-			
-		}
+	public boolean executeDeleteWorld(String name, World.Dimension dim) {
+		File directory = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().getFile());
+		System.out.println(directory.getAbsolutePath());
+		
 		return true;
 	}
+	
 
 }

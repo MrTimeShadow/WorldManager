@@ -16,10 +16,15 @@ public class WMCommandListener extends PluginListener {
 				case "load":
 					if(split.length < 3) {
 						this.sendHelpMsg(player);
+						break;
 					}
 					executor.executeLoadWorld(split[2]);
 					break;
 				case "unload":
+					if(split.length < 3) {
+						this.sendHelpMsg(player);
+						break;
+					}
 					WMWorldManager.getInstance().unloadWorld(etc.getServer().getWorld(split[2]));
 					break;
 					
@@ -60,11 +65,36 @@ public class WMCommandListener extends PluginListener {
 					break;
 					
 				case "delete":
+					if(split.length < 4) {
+						this.sendHelpMsg(player);
+						break;
+					}
+					String worldname = split[2];
+					World.Dimension dim;
+					switch(split[3].toLowerCase()) {
+						case "all":
+							dim = null;
+							break;
+						case "normal":
+							dim = World.Dimension.NORMAL;
+							break;
+						case "nether":
+							dim = World.Dimension.NETHER;
+							break;
+						case "end":
+							dim = World.Dimension.END;
+							break;
+						default:
+							this.sendHelpMsg(player);
+							return true;
+					}
+					executor.executeDeleteWorld(worldname, dim);
 					break;
 					
 				case "tp":
 					if(split.length < 3) {
 						this.sendHelpMsg(player);
+						break;
 					}
 					World[] world = etc.getServer().getWorld(split[2]);
 					player.switchWorlds(world[World.Dimension.NORMAL.toIndex()]);
@@ -98,8 +128,8 @@ public class WMCommandListener extends PluginListener {
 		player.notify("     Unloads an existing World");
 		player.notify("/wm create <name> <DEFAULT|FLAT|LARGEBIOMES> [Seed] [Generator Settings]");
 		player.notify("     Creates a new World");
-		player.notify("/wm delete <name>");
-		player.notify("     Deletes an existing World");
+		player.notify("/wm delete <name> <NORMAL|NETHER|END|ALL>");
+		player.notify("     Deletes an existing World, the second parameter is the dimension.");
 		player.notify("/wm tp <worldname>");
 		player.notify("     Teleports you to a World");
 	}
