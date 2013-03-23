@@ -68,7 +68,7 @@ public class WMCommandListener extends PluginListener {
 					}
 					World[] world = etc.getServer().getWorld(split[2]);
 					player.switchWorlds(world[World.Dimension.NORMAL.toIndex()]);
-					int gamemode = WMWorldConfiguration.configs.get(world[0].getName()).configurationFile.propertiesFile.getInt("gamemode");
+					int gamemode = WMWorldConfiguration.configs.get(world[0].getName()).getPropertiesConfiguration().getInt("gamemode");
 					player.setCreativeMode(gamemode);
 					break;
 				default:

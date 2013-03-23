@@ -20,7 +20,9 @@ public class WMWorldConfiguration {
 		return world;
 	}
 	
-	
+	public PropertiesFile getPropertiesConfiguration() {
+		return this.configurationFile.propertiesFile;
+	}
 	
 
 }
