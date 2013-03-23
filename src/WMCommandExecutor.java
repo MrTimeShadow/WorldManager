@@ -28,8 +28,22 @@ public class WMCommandExecutor {
 	}
 	
 	public boolean executeDeleteWorld(String name, World.Dimension dim) {
-		File directory = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().getFile());
-		System.out.println(directory.getAbsolutePath());
+		File directory = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().getFile()).getParentFile();
+		File worldDirectory = new File(directory, name);
+		File overWorldDirectory = new File(worldDirectory, "region");
+		File netherWorldDirectory = new File(worldDirectory, "DIM-1");
+		File endWorldDirectory = new File(worldDirectory, "DIM1");
+		if(dim == null) {
+			worldDirectory.delete();
+		} else if(dim == World.Dimension.NORMAL) {
+			overWorldDirectory.delete();
+		} else if(dim == World.Dimension.NETHER) {
+			netherWorldDirectory.delete();
+		} else if(dim == World.Dimension.END) {
+			endWorldDirectory.delete();
+		} else {
+			return false;
+		}
 		
 		return true;
 	}
