@@ -26,7 +26,7 @@ public class WMCommandListener extends PluginListener {
 						this.sendHelpMsg(player);
 						break;
 					}
-					WMWorldManager.getInstance().unloadWorld(etc.getServer().getWorld(split[2]));
+					executor.executeUnloadWorld(split[2]);
 					break;
 					
 				case "create":
