@@ -5,7 +5,7 @@ import java.util.Random;
 public class WMCommandListener extends PluginListener {
 	
 	public boolean onCommand(Player player, String[] split) {
-		if(split[0].equalsIgnoreCase("/wm") && player.canUseCommand("/wm")) {
+		if(split[0].equalsIgnoreCase("/wm")) {
 			
 			if(split.length == 1) {
 				this.sendHelpMsg(player);
@@ -15,6 +15,9 @@ public class WMCommandListener extends PluginListener {
 
 			switch(split[1].toLowerCase()) {
 				case "load":
+					if(!player.canUseCommand("/wmload")) {
+						return false;
+					}
 					if(split.length < 3) {
 						this.sendHelpMsg(player);
 						break;
@@ -22,6 +25,9 @@ public class WMCommandListener extends PluginListener {
 					executor.executeLoadWorld(split[2]);
 					break;
 				case "unload":
+					if(!player.canUseCommand("/wmunload"))  {
+						return false;
+					}
 					if(split.length < 3) {
 						this.sendHelpMsg(player);
 						break;
@@ -30,7 +36,9 @@ public class WMCommandListener extends PluginListener {
 					break;
 					
 				case "create":
-					
+					if(!player.canUseCommand("/wmcreate")) {
+						return false;
+					}
 					World.Type type;
 					switch(split[3].toLowerCase()) {
 						case "default":
@@ -66,6 +74,9 @@ public class WMCommandListener extends PluginListener {
 					break;
 					
 				case "delete":
+					if(!player.canUseCommand("/wmdelete")) {
+						
+					}
 					if(split.length < 4) {
 						this.sendHelpMsg(player);
 						break;
@@ -93,6 +104,9 @@ public class WMCommandListener extends PluginListener {
 					break;
 					
 				case "tp":
+					if(!player.canUseCommand("/wmtp")) {
+						return false;
+					}
 					if(split.length < 3) {
 						this.sendHelpMsg(player);
 						break;
