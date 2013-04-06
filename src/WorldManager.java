@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.logging.Logger;
 
 public class WorldManager extends Plugin {
@@ -8,8 +9,6 @@ public class WorldManager extends Plugin {
 	public static final Logger mclogger = Logger.getLogger("Minecraft");
 	
 	private WMCommandListener commandListener = new WMCommandListener();
-	private WMPlayerListener playerListener = new WMPlayerListener();
-	private WMBlockListener blockListener = new WMBlockListener();
 	
 	@Override
 	/**
@@ -21,10 +20,12 @@ public class WorldManager extends Plugin {
 		PluginLoader loader = etc.getLoader();
 		
 		this.addCommandListeners(loader);
-		this.addPlayerListeners(loader);
-		this.addBlockListeners(loader);
 		
 		mclogger.info("[WorldManager] Successfully enabled WorldManager");
+		
+		mclogger.info("[WorldManager] Loading Worlds...");
+		loadWorldsOnStartup();
+		mclogger.info("[WorldManager] Successfully loaded Worlds!");
 		
 	}
 	
@@ -35,7 +36,6 @@ public class WorldManager extends Plugin {
 	public void enable() {
 		mclogger.info("[WorldManager] Enabling WorldManager!");
 		etc.getInstance().addCommand("/wm", "Displays the Help of WorldManager"); //Adds the Command to the help list
-		PlayerLocationsFile.getInstance().load();
 	}
 
 	@Override
@@ -44,7 +44,6 @@ public class WorldManager extends Plugin {
 	 */
 	public void disable() {
 		etc.getInstance().removeCommand("/wm"); //Removes the Command from the Help list
-		PlayerLocationsFile.getInstance().save();
 		mclogger.info("[WorldManager] Successfully disabled WorldManager!");
 	}
 	
@@ -55,20 +54,21 @@ public class WorldManager extends Plugin {
 		loader.addListener(PluginLoader.Hook.SERVERCOMMAND, commandListener, this, PluginListener.Priority.MEDIUM);
 	}
 	
-	private void addPlayerListeners(PluginLoader loader) {
-		loader.addListener(PluginLoader.Hook.LOGIN, playerListener, this, PluginListener.Priority.MEDIUM);
-		loader.addListener(PluginLoader.Hook.DISCONNECT, playerListener, this, PluginListener.Priority.MEDIUM);
-		loader.addListener(PluginLoader.Hook.BAN, playerListener, this, PluginListener.Priority.MEDIUM);
-		loader.addListener(PluginLoader.Hook.KICK, playerListener, this, PluginListener.Priority.MEDIUM);
+	public void loadWorldsOnStartup() {
+		for(File f : new File("/worldmanager/worlds/").listFiles()) {
+			if(f.getName().endsWith(".properties")) {
+				PropertiesFile pf = new PropertiesFile(f.getPath(), f.getName());
+				boolean load = pf.getBoolean("auto-load");
+				if(load) {
+					String worldname = f.getName().substring(0, f.getName().lastIndexOf('.') - 1);
+					mclogger.info("[WorldManager] Loading world " + worldname + "...");
+					World[] world = etc.getServer().loadWorld(worldname);
+					new WMWorldConfiguration(world);
+				}
+			}
+		}
 	}
 	
-	private void addBlockListeners(PluginLoader loader) {
-		loader.addListener(PluginLoader.Hook.BLOCK_BROKEN, blockListener, this, PluginListener.Priority.MEDIUM);
-		loader.addListener(PluginLoader.Hook.BLOCK_CREATED, blockListener, this, PluginListener.Priority.MEDIUM);
-		loader.addListener(PluginLoader.Hook.BLOCK_DESTROYED, blockListener, this, PluginListener.Priority.MEDIUM);
-		loader.addListener(PluginLoader.Hook.BLOCK_PHYSICS, blockListener, this, PluginListener.Priority.MEDIUM);
-		loader.addListener(PluginLoader.Hook.BLOCK_PLACE, blockListener, this, PluginListener.Priority.MEDIUM);
-		loader.addListener(PluginLoader.Hook.BLOCK_UPDATE, blockListener, this, PluginListener.Priority.MEDIUM);
-	}
+	
 
 }

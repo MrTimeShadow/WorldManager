@@ -135,18 +135,18 @@ public class WMCommandListener extends PluginListener {
 	}
 	
 	private void sendHelpMsg(Player player) {
-		player.notify("WorldManager Help:");
-		player.notify("Commands:");
-		player.notify("/wm load <name>");
-		player.notify("     Loads an existing World");
-		player.notify("/wm unload <name>");
-		player.notify("     Unloads an existing World");
-		player.notify("/wm create <name> <DEFAULT|FLAT|LARGEBIOMES> [Seed] [Generator Settings]");
-		player.notify("     Creates a new World");
-		player.notify("/wm delete <name> <NORMAL|NETHER|END|ALL>");
-		player.notify("     Deletes an existing World, the second parameter is the dimension.");
-		player.notify("/wm tp <worldname>");
-		player.notify("     Teleports you to a World");
+		player.notify(Colors.Green + "WorldManager Help:");
+		player.notify(Colors.Gold + "Commands:");
+		player.notify(Colors.Blue + "/wm load <name>");
+		player.notify(Colors.White + "     Loads an existing World");
+		player.notify(Colors.Blue + "/wm unload <name>");
+		player.notify(Colors.White + "     Unloads an existing World");
+		player.notify(Colors.Blue + "/wm create <name> <DEFAULT|FLAT|LARGEBIOMES> [Seed] [Generator Settings]");
+		player.notify(Colors.White + "     Creates a new World");
+		player.notify(Colors.Blue + "/wm delete <name> <NORMAL|NETHER|END|ALL>");
+		player.notify(Colors.White + "     Deletes an existing World, the second parameter is the dimension.");
+		player.notify(Colors.Blue + "/wm tp <worldname>");
+		player.notify(Colors.White + "     Teleports you to a World");
 	}
 
 }

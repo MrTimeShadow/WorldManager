@@ -14,7 +14,12 @@ public class WMCommandExecutor {
 	}
 	
 	public boolean executeUnloadWorld(String name) {
-		WMWorldManager.getInstance().unloadWorld(etc.getServer().getWorld(name));
+		World[] world = etc.getServer().getWorld(name);
+		OWorldServer[] oworld = new OWorldServer[world.length];
+		for(int i = 0; i < world.length; i++) {
+			oworld[i] = world[i].getWorld();
+		}
+		etc.getServer().getMCServer().worlds.remove(oworld);
 		return true;
 	}
 	
