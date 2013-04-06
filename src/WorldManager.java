@@ -3,10 +3,10 @@ import java.util.logging.Logger;
 
 public class WorldManager extends Plugin {
 
-	public static final String NAME = "WorldManager";
-	public static final String VERSION = "0.0.1";
-	public static final String AUTHOR = "MrTimeShadow";
-	public static final Logger mclogger = Logger.getLogger("Minecraft");
+	public final String name = "WorldManager";
+	public final String version = "0.0.1";
+	public final String author = "MrTimeShadow";
+	public final Logger mclogger = Logger.getLogger("Minecraft");
 	
 	private WMCommandListener commandListener = new WMCommandListener();
 	private WMPlayerListener playerListener = new WMPlayerListener();
@@ -16,7 +16,7 @@ public class WorldManager extends Plugin {
 	 * Registers the Listener for the needed Hooks
 	 */
 	public void initialize() {
-		this.setName("WorldManager v0.0.1 by MrTimeShadow");
+		this.setName( name + " v" + version + " by " + author);
 		mclogger.info("[WorldManager] Initializing WorldManager!");
 		PluginLoader loader = etc.getLoader();
 		
@@ -36,7 +36,7 @@ public class WorldManager extends Plugin {
 	 * Registers the commands
 	 */
 	public void enable() {
-		mclogger.info("[WorldManager] Enabling WorldManager!");
+		mclogger.info("[WorldManager] Enabling WorldManager v" + version + " by " + author + "!");
 		etc.getInstance().addCommand("/wm", "Displays the Help of WorldManager"); //Adds the Command to the help list
 		PlayerLocationsFile.getInstance().load();
 	}
