@@ -24,5 +24,11 @@ public class WMWorldConfiguration {
 		return this.configurationFile.propertiesFile;
 	}
 	
+	public static void saveConfigs() {
+		for(WMWorldConfiguration c : configs.values()) {
+			c.configurationFile.propertiesFile.save();
+		}
+	}
+	
 
 }

@@ -3,13 +3,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Scanner;
 
 
 public class WMWorldConfigFile {
 
-	public static HashMap<String, WMWorldConfigFile> worldConfigs = new HashMap<String, WMWorldConfigFile>();
 	
 	private String worldName;
 	public final PropertiesFile propertiesFile;
@@ -23,13 +21,12 @@ public class WMWorldConfigFile {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		propertiesFile = new PropertiesFile("/worldmanager/worlds/",worldName + ".properties");
-		worldConfigs.put(worldName, this);
+		propertiesFile = new PropertiesFile("config/worldmanager/worlds/",worldName + ".properties");
 	}
 	
 	private void createFileIfNotExisting() throws IOException {
-		File f = new File("/worldmanager/worlds/" + this.worldName + ".properties");
-		File path = new File("/worldmanager/worlds/");
+		File f = new File("config/worldmanager/worlds/" + this.worldName + ".properties");
+		File path = new File("config/worldmanager/worlds/");
 		if(!path.exists()) {
 			path.mkdirs();
 		}
@@ -51,7 +48,7 @@ public class WMWorldConfigFile {
 	}
 	
 	private void sortFile() throws IOException {
-		File f = new File("/worldmanager/worlds/" + this.worldName + ".properties");
+		File f = new File("config/worldmanager/worlds/" + this.worldName + ".properties");
 		Scanner sc = new Scanner(f);
 		ArrayList<String> lines = new ArrayList<String>();
 		while(sc.hasNextLine()) {

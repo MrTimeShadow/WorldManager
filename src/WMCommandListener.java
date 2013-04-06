@@ -39,6 +39,10 @@ public class WMCommandListener extends PluginListener {
 					if(!player.canUseCommand("/wmcreate")) {
 						return false;
 					}
+					if(split.length < 4) {
+						this.sendUsage(player, split[1]);
+						break;
+					}
 					World.Type type;
 					switch(split[3].toLowerCase()) {
 						case "default":

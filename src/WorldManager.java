@@ -45,6 +45,7 @@ public class WorldManager extends Plugin {
 	public void disable() {
 		etc.getInstance().removeCommand("/wm"); //Removes the Command from the Help list
 		mclogger.info("[WorldManager] Successfully disabled WorldManager!");
+		WMWorldConfiguration.saveConfigs();
 	}
 	
 	
@@ -55,14 +56,14 @@ public class WorldManager extends Plugin {
 	}
 	
 	public void loadWorldsOnStartup() {
-		File path = new File("/worldmanager/worlds/");
+		File path = new File("config/worldmanager/worlds/");
 		if(!path.isDirectory() || !path.exists()) {
 			path.mkdirs();
 			return;
 		}
 		for(File f : path.listFiles()) {
 			if(f.getName().endsWith(".properties")) {
-				PropertiesFile pf = new PropertiesFile(f.getPath(), f.getName());
+				PropertiesFile pf = new PropertiesFile(f.getPath());
 				boolean load = pf.getBoolean("auto-load");
 				if(load) {
 					String worldname = f.getName().substring(0, f.getName().lastIndexOf('.') - 1);
