@@ -113,8 +113,12 @@ public class WMCommandListener extends PluginListener {
 					}
 					World[] world = etc.getServer().getWorld(split[2]);
 					player.switchWorlds(world[World.Dimension.NORMAL.toIndex()]);
-					int gamemode = WMWorldConfiguration.configs.get(world[0].getName()).getPropertiesConfiguration().getInt("gamemode");
-					player.setCreativeMode(gamemode);
+					if (!world[0].getName().equalsIgnoreCase(etc.getServer().getDefaultWorld().getName())) {
+						int gamemode = WMWorldConfiguration.configs.get(world[0].getName()).getPropertiesConfiguration().getInt("gamemode");
+						player.setCreativeMode(gamemode);
+					} else {
+						player.setCreativeMode(etc.getServer().getDefaultWorld().getGameMode());
+					}
 					break;
 				case "list":
 					StringBuilder sb = new StringBuilder();
@@ -124,6 +128,7 @@ public class WMCommandListener extends PluginListener {
 					}
 					String message = sb.toString().substring(0, sb.toString().length() - 2);
 					player.sendMessage(message);
+					break;
 				default:
 					this.sendHelpMsg(player);
 			}
@@ -155,6 +160,8 @@ public class WMCommandListener extends PluginListener {
 		player.notify(Colors.White + "     Deletes an existing World, the second parameter is the dimension.");
 		player.notify(Colors.Blue + "/wm tp <worldname>");
 		player.notify(Colors.White + "     Teleports you to a World");
+		player.notify(Colors.Blue + "/wm list");
+		player.notify(Colors.White + "     Lists all loaded worlds");
 	}
 
 }
