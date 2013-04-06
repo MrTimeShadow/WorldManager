@@ -66,7 +66,7 @@ public class WorldManager extends Plugin {
 				PropertiesFile pf = new PropertiesFile(f.getPath());
 				boolean load = pf.getBoolean("auto-load");
 				if(load) {
-					String worldname = f.getName().substring(0, f.getName().lastIndexOf('.') - 1);
+					String worldname = f.getName().substring(0, f.getName().lastIndexOf('.'));
 					mclogger.info("[WorldManager] Loading world " + worldname + "...");
 					World[] world = etc.getServer().loadWorld(worldname);
 					new WMWorldConfiguration(world);
