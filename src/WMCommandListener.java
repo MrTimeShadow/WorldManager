@@ -116,6 +116,14 @@ public class WMCommandListener extends PluginListener {
 					int gamemode = WMWorldConfiguration.configs.get(world[0].getName()).getPropertiesConfiguration().getInt("gamemode");
 					player.setCreativeMode(gamemode);
 					break;
+				case "list":
+					StringBuilder sb = new StringBuilder();
+					sb.append(Colors.Green + "Loaded Worlds:" + Colors.White + " ");
+					for(String worldName : etc.getServer().getLoadedWorldNames()) {
+						sb.append(worldName + ", ");
+					}
+					String message = sb.toString().substring(0, sb.toString().length() - 2);
+					player.sendMessage(message);
 				default:
 					this.sendHelpMsg(player);
 			}
