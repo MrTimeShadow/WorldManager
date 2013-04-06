@@ -55,7 +55,12 @@ public class WorldManager extends Plugin {
 	}
 	
 	public void loadWorldsOnStartup() {
-		for(File f : new File("/worldmanager/worlds/").listFiles()) {
+		File path = new File("/worldmanager/worlds/");
+		if(!path.isDirectory() || !path.exists()) {
+			path.mkdirs();
+			return;
+		}
+		for(File f : path.listFiles()) {
 			if(f.getName().endsWith(".properties")) {
 				PropertiesFile pf = new PropertiesFile(f.getPath(), f.getName());
 				boolean load = pf.getBoolean("auto-load");
