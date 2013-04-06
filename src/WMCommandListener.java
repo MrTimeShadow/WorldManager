@@ -19,7 +19,7 @@ public class WMCommandListener extends PluginListener {
 						return false;
 					}
 					if(split.length < 3) {
-						this.sendHelpMsg(player);
+						this.sendUsage(player, split[1]);
 						break;
 					}
 					executor.executeLoadWorld(split[2]);
@@ -29,7 +29,7 @@ public class WMCommandListener extends PluginListener {
 						return false;
 					}
 					if(split.length < 3) {
-						this.sendHelpMsg(player);
+						this.sendUsage(player, split[1]);
 						break;
 					}
 					executor.executeUnloadWorld(split[2]);
@@ -51,7 +51,7 @@ public class WMCommandListener extends PluginListener {
 							type = World.Type.LARGE_BIOMES;
 							break;
 						default:
-							this.sendHelpMsg(player);
+							this.sendUsage(player, split[1]);
 							return true;
 					}
 					
@@ -68,7 +68,7 @@ public class WMCommandListener extends PluginListener {
 					} else if(split.length == 6) {
 						executor.executeCreateWorld(split[2], type, Long.parseLong(split[4]), split[5]);
 					} else {
-						this.sendHelpMsg(player);
+						this.sendUsage(player, split[1]);
 					}
 					
 					break;
@@ -78,7 +78,7 @@ public class WMCommandListener extends PluginListener {
 						
 					}
 					if(split.length < 4) {
-						this.sendHelpMsg(player);
+						this.sendUsage(player, split[1]);
 						break;
 					}
 					String worldname = split[2];
@@ -97,7 +97,7 @@ public class WMCommandListener extends PluginListener {
 							dim = World.Dimension.END;
 							break;
 						default:
-							this.sendHelpMsg(player);
+							this.sendUsage(player, split[1]);
 							return true;
 					}
 					executor.executeDeleteWorld(worldname, dim);
@@ -108,7 +108,7 @@ public class WMCommandListener extends PluginListener {
 						return false;
 					}
 					if(split.length < 3) {
-						this.sendHelpMsg(player);
+						this.sendUsage(player, split[1]);
 						break;
 					}
 					World[] world = etc.getServer().getWorld(split[2]);
@@ -120,6 +120,7 @@ public class WMCommandListener extends PluginListener {
 						player.setCreativeMode(etc.getServer().getDefaultWorld().getGameMode());
 					}
 					break;
+					
 				case "list":
 					StringBuilder sb = new StringBuilder();
 					sb.append(Colors.Green + "Loaded Worlds:" + Colors.White + " ");
@@ -129,6 +130,7 @@ public class WMCommandListener extends PluginListener {
 					String message = sb.toString().substring(0, sb.toString().length() - 2);
 					player.sendMessage(message);
 					break;
+					
 				default:
 					this.sendHelpMsg(player);
 			}
@@ -162,6 +164,29 @@ public class WMCommandListener extends PluginListener {
 		player.notify(Colors.White + "     Teleports you to a World");
 		player.notify(Colors.Blue + "/wm list");
 		player.notify(Colors.White + "     Lists all loaded worlds");
+	}
+	
+	private void sendUsage(Player player, String command) {
+		String usage = "";
+		switch(command.toLowerCase()) {
+			case "load":
+				usage = "/wm load <name>";
+				break;
+			case "unload":
+				usage = "/wm unload <name>";
+				break;
+			case "create":
+				usage = "/wm create <name> <DEFAULT|FLAT|LARGEBIOMES> [Seed] [Generator Settings]";
+				break;
+			case "delete":
+				usage = "/wm delete <name> <NORMAL|NETHER|END|ALL>";
+				break;
+			case "tp":
+				usage = "/wm tp <worldname>";
+				break;
+		}
+		
+		player.sendMessage(Colors.Red + "Usage: " + Colors.Gold + usage);
 	}
 
 }
