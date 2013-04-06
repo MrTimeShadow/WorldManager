@@ -9,6 +9,7 @@ public class WorldManager extends Plugin {
 	public static final Logger mclogger = Logger.getLogger("Minecraft");
 	
 	private WMCommandListener commandListener = new WMCommandListener();
+	private WMPlayerListener playerListener = new WMPlayerListener();
 	
 	@Override
 	/**
@@ -20,6 +21,7 @@ public class WorldManager extends Plugin {
 		PluginLoader loader = etc.getLoader();
 		
 		this.addCommandListeners(loader);
+		this.addPlayerListeners(loader);
 		
 		mclogger.info("[WorldManager] Successfully enabled WorldManager");
 		
@@ -36,6 +38,7 @@ public class WorldManager extends Plugin {
 	public void enable() {
 		mclogger.info("[WorldManager] Enabling WorldManager!");
 		etc.getInstance().addCommand("/wm", "Displays the Help of WorldManager"); //Adds the Command to the help list
+		PlayerLocationsFile.getInstance().load();
 	}
 
 	@Override
@@ -44,8 +47,9 @@ public class WorldManager extends Plugin {
 	 */
 	public void disable() {
 		etc.getInstance().removeCommand("/wm"); //Removes the Command from the Help list
-		mclogger.info("[WorldManager] Successfully disabled WorldManager!");
+		PlayerLocationsFile.getInstance().save();
 		WMWorldConfiguration.saveConfigs();
+		mclogger.info("[WorldManager] Successfully disabled WorldManager!");
 	}
 	
 	
@@ -53,6 +57,13 @@ public class WorldManager extends Plugin {
 		loader.addListener(PluginLoader.Hook.COMMAND, commandListener, this, PluginListener.Priority.MEDIUM);
 		loader.addListener(PluginLoader.Hook.COMMAND_CHECK, commandListener, this, PluginListener.Priority.MEDIUM);
 		loader.addListener(PluginLoader.Hook.SERVERCOMMAND, commandListener, this, PluginListener.Priority.MEDIUM);
+	}
+	
+	private void addPlayerListeners(PluginLoader loader) {
+		loader.addListener(PluginLoader.Hook.LOGIN, playerListener, this, PluginListener.Priority.MEDIUM);
+		loader.addListener(PluginLoader.Hook.DISCONNECT, playerListener, this, PluginListener.Priority.MEDIUM);
+		loader.addListener(PluginLoader.Hook.BAN, playerListener, this, PluginListener.Priority.MEDIUM);
+		loader.addListener(PluginLoader.Hook.KICK, playerListener, this, PluginListener.Priority.MEDIUM);
 	}
 	
 	public void loadWorldsOnStartup() {
