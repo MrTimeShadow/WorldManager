@@ -1,4 +1,6 @@
+import java.util.List;
 import java.util.Random;
+import java.util.TreeSet;
 
 
 
@@ -152,6 +154,21 @@ public class WMCommandListener extends PluginListener {
 	public PluginLoader.HookResult canPlayerUseCommand(Player player, String command) {
 		return PluginLoader.HookResult.DEFAULT_ACTION;
 	}
+	
+	public boolean onCommandBlockCommand(CommandBlock block, String[] split) {
+		
+		if(split[0].equalsIgnoreCase("wm")) {
+			switch(split[1].toLowerCase()) {
+				case "tp":
+
+			}
+			
+			return true;
+		}
+		
+		return false;
+	}
+
 	
 	private void sendHelpMsg(Player player) {
 		player.notify(Colors.Green + "WorldManager Help:");

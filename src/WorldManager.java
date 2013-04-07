@@ -6,7 +6,7 @@ public class WorldManager extends Plugin {
 	public final String name = "WorldManager";
 	public final String version = "0.1";
 	public final String author = "MrTimeShadow";
-	public final Logger mclogger = Logger.getLogger("Minecraft");
+	public static Logger mclogger = Logger.getLogger("Minecraft");
 	
 	private WMCommandListener commandListener = new WMCommandListener();
 	private WMPlayerListener playerListener = new WMPlayerListener();
@@ -57,6 +57,7 @@ public class WorldManager extends Plugin {
 		loader.addListener(PluginLoader.Hook.COMMAND, commandListener, this, PluginListener.Priority.MEDIUM);
 		loader.addListener(PluginLoader.Hook.COMMAND_CHECK, commandListener, this, PluginListener.Priority.MEDIUM);
 		loader.addListener(PluginLoader.Hook.SERVERCOMMAND, commandListener, this, PluginListener.Priority.MEDIUM);
+		loader.addListener(PluginLoader.Hook.COMMAND_BLOCK_COMMAND, commandListener, this, PluginListener.Priority.MEDIUM);
 	}
 	
 	private void addPlayerListeners(PluginLoader loader) {
