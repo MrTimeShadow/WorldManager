@@ -162,7 +162,7 @@ public class WMCommandListener extends PluginListener {
 		player.notify(Colors.White + "     Unloads an existing World");
 		player.notify(Colors.Blue + "/wm create <name> <DEFAULT|FLAT|LARGEBIOMES> [Seed] [Generator Settings]");
 		player.notify(Colors.White + "     Creates a new World");
-		player.notify(Colors.Blue + "/wm delete <name> <NORMAL|NETHER|END|ALL>");
+		player.notify(Colors.Blue + "/wm delete <name> <OVERWORLD|NETHER|END|ALL>");
 		player.notify(Colors.White + "     Deletes an existing World, the second parameter is the dimension.");
 		player.notify(Colors.Blue + "/wm tp <worldname>");
 		player.notify(Colors.White + "     Teleports you to a World");
@@ -183,7 +183,7 @@ public class WMCommandListener extends PluginListener {
 				usage = "/wm create <name> <DEFAULT|FLAT|LARGEBIOMES> [Seed] [Generator Settings]";
 				break;
 			case "delete":
-				usage = "/wm delete <name> <NORMAL|NETHER|END|ALL>";
+				usage = "/wm delete <name> <OVERWORLD|NETHER|END|ALL>";
 				break;
 			case "tp":
 				usage = "/wm tp <worldname>";
