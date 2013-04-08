@@ -1,6 +1,4 @@
-import java.util.List;
 import java.util.Random;
-import java.util.TreeSet;
 
 
 
@@ -16,6 +14,7 @@ public class WMCommandListener extends PluginListener {
 			WMCommandExecutor executor = new WMCommandExecutor();
 
 			switch(split[1].toLowerCase()) {
+				
 				case "load":
 					if(!player.canUseCommand("/wmload")) {
 						return false;
@@ -26,6 +25,7 @@ public class WMCommandListener extends PluginListener {
 					}
 					executor.executeLoadWorld(split[2]);
 					break;
+					
 				case "unload":
 					if(!player.canUseCommand("/wmunload"))  {
 						return false;
@@ -117,6 +117,11 @@ public class WMCommandListener extends PluginListener {
 						this.sendUsage(player, split[1]);
 						break;
 					}
+					
+					String playerworldname = player.getWorld().getName();
+					String defaultworldname = etc.getServer().getDefaultWorld().getName();
+					InventoryManager.saveInventory(player, playerworldname.equalsIgnoreCase(defaultworldname) ? 0 : WMWorldConfiguration.configs.get(playerworldname).getPropertiesConfiguration().getInt("inventoryId"));
+					
 					World[] world = etc.getServer().getWorld(split[2]);
 					player.switchWorlds(world[World.Dimension.NORMAL.toIndex()]);
 					if (!world[0].getName().equalsIgnoreCase(etc.getServer().getDefaultWorld().getName())) {
@@ -125,6 +130,9 @@ public class WMCommandListener extends PluginListener {
 					} else {
 						player.setCreativeMode(etc.getServer().getDefaultWorld().getGameMode());
 					}
+					
+					playerworldname = player.getWorld().getName();
+					InventoryManager.loadInventory(player, playerworldname.equalsIgnoreCase(defaultworldname) ? 0 : WMWorldConfiguration.configs.get(playerworldname).getPropertiesConfiguration().getInt("inventoryId"));
 					break;
 					
 				case "list":
@@ -148,7 +156,17 @@ public class WMCommandListener extends PluginListener {
 	}
 	
 	public boolean onConsoleCommand(String[] split) {
-		return this.onCommand(new PlayerConsole(), split);
+		if (split[0].equalsIgnoreCase("wm") || split[0].equalsIgnoreCase("/wm")) {
+			if (!split[0].contains("/")) {
+				split[0] = "/" + split[0];
+			}
+			if (!split[1].equalsIgnoreCase("tp")) {
+				return this.onCommand(new PlayerConsole(), split);
+			} else {
+				return false;
+			}
+		}
+		return false;
 	}
 	
 	public PluginLoader.HookResult canPlayerUseCommand(Player player, String command) {
@@ -205,6 +223,9 @@ public class WMCommandListener extends PluginListener {
 			case "tp":
 				usage = "/wm tp <worldname>";
 				break;
+			default:
+				this.sendHelpMsg(player);
+				return;
 		}
 		
 		player.sendMessage(Colors.Red + "Usage: " + Colors.Gold + usage);
