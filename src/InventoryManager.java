@@ -36,19 +36,15 @@ public class InventoryManager {
 			WorldManager.mclogger.severe("Cause: "  + e.getMessage());
 		}
 		
-		ArrayList<Item> tempList = new ArrayList<Item>();
-		for (int i = 1; i < lines.size(); i++){
+		Item[] items = new Item[player.getInventory().getContentsSize()];
+		for (int i = 0; i < lines.size(); i++){
 			String[] splitLine = lines.get(i).split(":");
 			
-			Item item = new Item(Integer.valueOf(splitLine[0]), Integer.valueOf(splitLine[1]), Integer.valueOf(splitLine[2]), Integer.valueOf(splitLine[3]));
-			item.setName(String.valueOf(splitLine[4]));
-			tempList.add(item);
-		}
-		
-		Item[] items = new Item[tempList.size()];
-		
-		for (int i = 0; i < tempList.size(); i++) {
-			items[i] = tempList.get(i);
+			Item item = new Item(Integer.parseInt(splitLine[0]), Integer.parseInt(splitLine[1]), Integer.parseInt(splitLine[2]), Integer.parseInt(splitLine[3]));
+			if (!splitLine[4].equals(item.getName())) {
+				item.setName(splitLine[4]);
+			}
+			items[item.getSlot()] = item;
 		}
 		
 		WorldManager.mclogger.info("[WorldManager] Length of " + player.getName() + " is " + items.length);
