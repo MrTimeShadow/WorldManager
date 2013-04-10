@@ -170,6 +170,9 @@ public class WMCommandListener extends PluginListener {
 	}
 	
 	public PluginLoader.HookResult canPlayerUseCommand(Player player, String command) {
+		if(player instanceof PlayerConsole) {
+			return PluginLoader.HookResult.ALLOW_ACTION;
+		}
 		return PluginLoader.HookResult.DEFAULT_ACTION;
 	}
 	
