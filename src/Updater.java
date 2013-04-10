@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Updater {
 
-	private static String updateURL = "http://www.";
+	private static String updateURL = "https://dl-web.dropbox.com/get/worldmanager.txt?w=AAD5MCRloP_vbZo2luROQibyp234MoBPb5FxhzAQ6Uz3gg";
 	
 	
 	public static boolean isUpdateAvailable() throws IOException {
