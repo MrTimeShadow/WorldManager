@@ -1,6 +1,19 @@
+import java.io.IOException;
+
 public class WMPlayerListener extends PluginListener {
 
 	public void onLogin(Player player) {
+		
+		try {
+			if(Updater.isUpdateAvailable()) {
+				player.sendMessage(Colors.Navy + "WorldManager" + Colors.White + " is out of date, please download the newest Version (" + Colors.Green + "v" + Updater.getNewestVersion() + Colors.White + ")");
+			} else {
+				player.sendMessage(Colors.Navy + "WorldManager" + Colors.White + " is up to date!");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		if (!PlayerLocationsFile.getInstance().hasPlayer(player)) {
 			PlayerLocationsFile.getInstance().addPlayer(player);
 		} else {
