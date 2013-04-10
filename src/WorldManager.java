@@ -4,7 +4,7 @@ import java.util.logging.Logger;
 public class WorldManager extends Plugin {
 
 	public final String name = "WorldManager";
-	public final String version = "0.1";
+	public final String version = "0.3";
 	public final String author = "MrTimeShadow";
 	public static Logger mclogger = Logger.getLogger("Minecraft");
 	
