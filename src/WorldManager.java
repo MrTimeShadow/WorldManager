@@ -3,9 +3,9 @@ import java.util.logging.Logger;
 
 public class WorldManager extends Plugin {
 
-	public final String name = "WorldManager";
-	public final String version = "0.3";
-	public final String author = "MrTimeShadow";
+	public static final String name = "WorldManager";
+	public static final String version = "0.3";
+	public static final String author = "MrTimeShadow";
 	public static Logger mclogger = Logger.getLogger("Minecraft");
 	
 	private WMCommandListener commandListener = new WMCommandListener();
