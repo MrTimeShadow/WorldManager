@@ -121,6 +121,7 @@ public class WMCommandListener extends PluginListener {
 					String playerworldname = player.getWorld().getName();
 					String defaultworldname = etc.getServer().getDefaultWorld().getName();
 					InventoryManager.saveInventory(player, playerworldname.equalsIgnoreCase(defaultworldname) ? 0 : WMWorldConfiguration.configs.get(playerworldname).getPropertiesConfiguration().getInt("inventoryId"));
+					player.getInventory().clearContents();
 					
 					World[] world = etc.getServer().getWorld(split[2]);
 					player.switchWorlds(world[World.Dimension.NORMAL.toIndex()]);
