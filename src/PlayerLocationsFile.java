@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PlayerLocationsFile {
-	private static PlayerLocationsFile instance = new PlayerLocationsFile("config/worldmanager/playerlocations.txt");
+	private static PlayerLocationsFile instance = new PlayerLocationsFile(new File(WorldManager.configurationPath, "playerlocations.txt"));
 
-	private File theFile;
+	private File playerLocationsFile;
 	private ArrayList<PlayerLocation> playerLocations = new ArrayList<>();
 
-	private PlayerLocationsFile(String name) {
-		this.theFile = new File(name);
+	private PlayerLocationsFile(File playerLocationsFile) {
+		this.playerLocationsFile = playerLocationsFile;
 	}
 
 	public void addPlayer(Player player) {
@@ -55,7 +55,7 @@ public class PlayerLocationsFile {
 	public void save() {
 		FileWriter fw;
 		try {
-			fw = new FileWriter(theFile);
+			fw = new FileWriter(playerLocationsFile);
 			for (PlayerLocation lc : this.playerLocations) {
 				fw.append(lc.toString());
 			}
@@ -69,7 +69,7 @@ public class PlayerLocationsFile {
 	public void load() {
 		Scanner sc;
 		try {
-			sc = new Scanner(theFile);
+			sc = new Scanner(playerLocationsFile);
 			while (sc.hasNextLine()) {
 				String line = sc.nextLine();
 				if (!line.startsWith("#")) {

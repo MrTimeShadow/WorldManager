@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class InventoryManager {
 
-	private static File inventoryPath = new File("config/worldmanager/inventories");
+	private static File inventoryPath = new File(WorldManager.configurationPath, "inventories/");
 	
 	public static void loadInventory(Player player) {
 		String playerworldname = player.getWorld().getName();

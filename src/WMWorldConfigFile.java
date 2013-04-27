@@ -21,12 +21,12 @@ public class WMWorldConfigFile {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		propertiesFile = new PropertiesFile("config/worldmanager/worlds/",worldName + ".properties");
+		propertiesFile = new PropertiesFile(new File(new File(WorldManager.configurationPath, "worlds/"),worldName + ".properties").getAbsolutePath());
 	}
 	
 	private void createFileIfNotExisting() throws IOException {
-		File f = new File("config/worldmanager/worlds/" + this.worldName + ".properties");
-		File path = new File("config/worldmanager/worlds/");
+		File f = new File("plugins/config/worldmanager/worlds/" + this.worldName + ".properties");
+		File path = new File("plugins/config/worldmanager/worlds/");
 		if(!path.exists()) {
 			path.mkdirs();
 		}
@@ -48,7 +48,7 @@ public class WMWorldConfigFile {
 	}
 	
 	private void sortFile() throws IOException {
-		File f = new File("config/worldmanager/worlds/" + this.worldName + ".properties");
+		File f = new File("plugins/config/worldmanager/worlds/" + this.worldName + ".properties");
 		Scanner sc = new Scanner(f);
 		ArrayList<String> lines = new ArrayList<String>();
 		while(sc.hasNextLine()) {

@@ -7,6 +7,7 @@ public class WorldManager extends Plugin {
 	public static final String version = "0.3";
 	public static final String author = "MrTimeShadow";
 	public static Logger mclogger = Logger.getLogger("Minecraft");
+	public static final File configurationPath = new File("plugins/config/worldmanager/");
 	
 	private WMCommandListener commandListener = new WMCommandListener();
 	private WMPlayerListener playerListener = new WMPlayerListener();
@@ -68,7 +69,7 @@ public class WorldManager extends Plugin {
 	}
 	
 	public void loadWorldsOnStartup() {
-		File path = new File("config/worldmanager/worlds/");
+		File path = new File(configurationPath, "worlds/");
 		if(!path.isDirectory() || !path.exists()) {
 			path.mkdirs();
 			return;
