@@ -39,6 +39,7 @@ public class WorldManager extends Plugin {
 	public void enable() {
 		mclogger.info("[WorldManager] Enabling WorldManager v" + version + " by " + author + "!");
 		etc.getInstance().addCommand("/wm", "Displays the Help of WorldManager"); //Adds the Command to the help list
+		etc.getLoader().addCustomListener(WorldManagerAPI.instance);
 		PlayerLocationsFile.getInstance().load();
 	}
 
