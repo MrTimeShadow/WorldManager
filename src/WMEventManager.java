@@ -56,8 +56,19 @@ public class WMEventManager {
 		return true;
 	}
 	
-	public static void processWorldTeleport() {
+	public static void processWorldTeleport(Player player, String worldname) {
+		InventoryManager.saveInventory(player);
 		
+		World[] world = etc.getServer().getWorld(worldname);
+		player.switchWorlds(world[World.Dimension.NORMAL.toIndex()]);
+		if (!world[0].getName().equalsIgnoreCase(etc.getServer().getDefaultWorld().getName())) {
+			int gamemode = WMWorldConfiguration.configs.get(world[0].getName()).getPropertiesConfiguration().getInt("gamemode");
+			player.setCreativeMode(gamemode);
+		} else {
+			player.setCreativeMode(etc.getServer().getDefaultWorld().getGameMode());
+		}
+		
+		InventoryManager.loadInventory(player);
 	}
 
 }

@@ -116,19 +116,7 @@ public class WMCommandListener extends PluginListener {
 						this.sendUsage(player, split[1]);
 						break;
 					}
-					
-					InventoryManager.saveInventory(player);
-					
-					World[] world = etc.getServer().getWorld(split[2]);
-					player.switchWorlds(world[World.Dimension.NORMAL.toIndex()]);
-					if (!world[0].getName().equalsIgnoreCase(etc.getServer().getDefaultWorld().getName())) {
-						int gamemode = WMWorldConfiguration.configs.get(world[0].getName()).getPropertiesConfiguration().getInt("gamemode");
-						player.setCreativeMode(gamemode);
-					} else {
-						player.setCreativeMode(etc.getServer().getDefaultWorld().getGameMode());
-					}
-					
-					InventoryManager.loadInventory(player);
+					WMEventManager.processWorldTeleport(player, split[2]);
 					break;
 					
 				case "list":
