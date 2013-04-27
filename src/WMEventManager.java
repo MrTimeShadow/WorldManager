@@ -58,7 +58,7 @@ public class WMEventManager {
 	
 	public static void processWorldTeleport(Player player, String worldname) {
 		InventoryManager.saveInventory(player);
-		
+		player.getInventory().clearContents();
 		World[] world = etc.getServer().getWorld(worldname);
 		player.switchWorlds(world[World.Dimension.NORMAL.toIndex()]);
 		if (!world[0].getName().equalsIgnoreCase(etc.getServer().getDefaultWorld().getName())) {
