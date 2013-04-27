@@ -12,7 +12,13 @@ public class InventoryManager {
 
 	private static File inventoryPath = new File("config/worldmanager/inventories");
 	
-	public static void loadInventory(Player player, int inventoryID) {
+	public static void loadInventory(Player player) {
+		String playerworldname = player.getWorld().getName();
+		String defaultworldname = etc.getServer().getDefaultWorld().getName();
+		InventoryManager.loadInventory(player, playerworldname.equalsIgnoreCase(defaultworldname) ? 0 : WMWorldConfiguration.configs.get(playerworldname).getPropertiesConfiguration().getInt("inventoryId"));
+	}
+
+	private static void loadInventory(Player player, int inventoryID) {
 		if(!inventoryPath.exists()) {
 			inventoryPath.mkdir();
 		}
@@ -73,7 +79,13 @@ public class InventoryManager {
 	}
 	
 	
-	public static void saveInventory(Player player, int inventoryID) {
+	public static void saveInventory(Player player) {
+		String worldname = player.getWorld().getName();
+		String defaultworldname = etc.getServer().getDefaultWorld().getName();
+		InventoryManager.saveInventory(player, worldname.equalsIgnoreCase(defaultworldname) ? 0 : WMWorldConfiguration.configs.get(worldname).getPropertiesConfiguration().getInt("inventoryId"));
+	}
+	
+	private static void saveInventory(Player player, int inventoryID) {
 		Item[] items = player.getInventory().getContents();
 		
 		BufferedWriter br;

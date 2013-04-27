@@ -1,10 +1,10 @@
 import java.io.File;
 
 
-public class WMCommandExecutor {
+public class WMEventManager {
 
 	
-	public boolean executeLoadWorld(String name) {
+	public static boolean processWorldLoad(String name) {
 		World[] loadedWorlds = etc.getServer().loadWorld(name);
 		if(loadedWorlds[0] == null && loadedWorlds[1] == null && loadedWorlds[2] == null) {
 			return false;
@@ -13,7 +13,8 @@ public class WMCommandExecutor {
 		return true;
 	}
 	
-	public boolean executeUnloadWorld(String name) {
+	@Deprecated
+	public static boolean processWorldUnload(String name) { //TODO: This doesn't work...
 		World[] world = etc.getServer().getWorld(name);
 		OWorldServer[] oworld = new OWorldServer[world.length];
 		for(int i = 0; i < world.length; i++) {
@@ -23,7 +24,7 @@ public class WMCommandExecutor {
 		return true;
 	}
 	
-	public boolean executeCreateWorld(String name, World.Type worldType, long seed, String generatorSettings) {
+	public static boolean processWorldCreate(String name, World.Type worldType, long seed, String generatorSettings) {
 		if(worldType.equals(World.Type.DEFAULT_1_1)) {
 			return false;
 		}
@@ -32,12 +33,14 @@ public class WMCommandExecutor {
 		return true;
 	}
 	
-	public boolean executeDeleteWorld(String name, World.Dimension dim) {
+	public static boolean processWorldDelete(String name, World.Dimension dim) {
+		
 		File directory = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().getFile()).getParentFile();
 		File worldDirectory = new File(directory, name);
 		File overWorldDirectory = new File(worldDirectory, "region");
 		File netherWorldDirectory = new File(worldDirectory, "DIM-1");
 		File endWorldDirectory = new File(worldDirectory, "DIM1");
+		
 		if(dim == null) {
 			worldDirectory.delete();
 		} else if(dim == World.Dimension.NORMAL) {
@@ -53,5 +56,8 @@ public class WMCommandExecutor {
 		return true;
 	}
 	
+	public static void processWorldTeleport() {
+		
+	}
 
 }

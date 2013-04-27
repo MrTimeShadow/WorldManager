@@ -28,30 +28,23 @@ public class WMPlayerListener extends PluginListener {
 			player.setY(pl.y);
 			player.setZ(pl.z);
 		}
-		String worldname = player.getWorld().getName();
-		String defaultworldname = etc.getServer().getDefaultWorld().getName();
-		InventoryManager.loadInventory(player, worldname.equalsIgnoreCase(defaultworldname) ? 0 : WMWorldConfiguration.configs.get(worldname).getPropertiesConfiguration().getInt("inventoryId"));
+		
+		InventoryManager.loadInventory(player);
 	}
 
 	public void onDisconnect(Player player) {
 		PlayerLocationsFile.getInstance().updateLocation(player);
-		String worldname = player.getWorld().getName();
-		String defaultworldname = etc.getServer().getDefaultWorld().getName();
-		InventoryManager.saveInventory(player, worldname.equalsIgnoreCase(defaultworldname) ? 0 : WMWorldConfiguration.configs.get(worldname).getPropertiesConfiguration().getInt("inventoryId"));
-	}
+		InventoryManager.saveInventory(player);
+		}
 
 	public void onBan(Player mod, Player player, String reason) {
 		PlayerLocationsFile.getInstance().updateLocation(player);
-		String worldname = player.getWorld().getName();
-		String defaultworldname = etc.getServer().getDefaultWorld().getName();
-		InventoryManager.saveInventory(player, worldname.equalsIgnoreCase(defaultworldname) ? 0 : WMWorldConfiguration.configs.get(worldname).getPropertiesConfiguration().getInt("inventoryId"));
+		InventoryManager.saveInventory(player);
 	}
 
 	public void onKick(Player mod, Player player, String reason) {
 		PlayerLocationsFile.getInstance().updateLocation(player);
-		String worldname = player.getWorld().getName();
-		String defaultworldname = etc.getServer().getDefaultWorld().getName();
-		InventoryManager.saveInventory(player, worldname.equalsIgnoreCase(defaultworldname) ? 0 : WMWorldConfiguration.configs.get(worldname).getPropertiesConfiguration().getInt("inventoryId"));
+		InventoryManager.saveInventory(player);
 	}
 
 }

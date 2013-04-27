@@ -11,7 +11,6 @@ public class WMCommandListener extends PluginListener {
 				this.sendHelpMsg(player);
 				return true;
 			}
-			WMCommandExecutor executor = new WMCommandExecutor();
 
 			switch(split[1].toLowerCase()) {
 				
@@ -23,7 +22,7 @@ public class WMCommandListener extends PluginListener {
 						this.sendUsage(player, split[1]);
 						break;
 					}
-					executor.executeLoadWorld(split[2]);
+					WMEventManager.processWorldLoad(split[2]);
 					break;
 					
 				case "unload":
@@ -34,7 +33,7 @@ public class WMCommandListener extends PluginListener {
 						this.sendUsage(player, split[1]);
 						break;
 					}
-					executor.executeUnloadWorld(split[2]);
+					WMEventManager.processWorldUnload(split[2]);
 					break;
 					
 				case "create":
@@ -62,17 +61,17 @@ public class WMCommandListener extends PluginListener {
 					}
 					
 					if (split.length == 4) {
-						executor.executeCreateWorld(split[2], type, new Random(System.currentTimeMillis()).nextLong(), "");
+						WMEventManager.processWorldCreate(split[2], type, new Random(System.currentTimeMillis()).nextLong(), "");
 					} else if (split.length == 5) {
 						long seed = 0;
 						try {
 							seed = Long.parseLong(split[4]);
-							executor.executeCreateWorld(split[2], type, seed, "");
+							WMEventManager.processWorldCreate(split[2], type, seed, "");
 						} catch(Exception e) {
-							executor.executeCreateWorld(split[2], type, new Random(System.currentTimeMillis()).nextLong(), split[4]);
+							WMEventManager.processWorldCreate(split[2], type, new Random(System.currentTimeMillis()).nextLong(), split[4]);
 						}
 					} else if(split.length == 6) {
-						executor.executeCreateWorld(split[2], type, Long.parseLong(split[4]), split[5]);
+						WMEventManager.processWorldCreate(split[2], type, Long.parseLong(split[4]), split[5]);
 					} else {
 						this.sendUsage(player, split[1]);
 					}
@@ -106,7 +105,7 @@ public class WMCommandListener extends PluginListener {
 							this.sendUsage(player, split[1]);
 							return true;
 					}
-					executor.executeDeleteWorld(worldname, dim);
+					WMEventManager.processWorldDelete(worldname, dim);
 					break;
 					
 				case "tp":
@@ -118,10 +117,7 @@ public class WMCommandListener extends PluginListener {
 						break;
 					}
 					
-					String playerworldname = player.getWorld().getName();
-					String defaultworldname = etc.getServer().getDefaultWorld().getName();
-					InventoryManager.saveInventory(player, playerworldname.equalsIgnoreCase(defaultworldname) ? 0 : WMWorldConfiguration.configs.get(playerworldname).getPropertiesConfiguration().getInt("inventoryId"));
-					player.getInventory().clearContents();
+					InventoryManager.saveInventory(player);
 					
 					World[] world = etc.getServer().getWorld(split[2]);
 					player.switchWorlds(world[World.Dimension.NORMAL.toIndex()]);
@@ -132,8 +128,7 @@ public class WMCommandListener extends PluginListener {
 						player.setCreativeMode(etc.getServer().getDefaultWorld().getGameMode());
 					}
 					
-					playerworldname = player.getWorld().getName();
-					InventoryManager.loadInventory(player, playerworldname.equalsIgnoreCase(defaultworldname) ? 0 : WMWorldConfiguration.configs.get(playerworldname).getPropertiesConfiguration().getInt("inventoryId"));
+					InventoryManager.loadInventory(player);
 					break;
 					
 				case "list":
