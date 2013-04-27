@@ -20,7 +20,7 @@ public class WMPlayerListener extends PluginListener {
 			PlayerLocation pl = PlayerLocationsFile.getInstance().getLocationOf(player);
 			World[] world = etc.getServer().getWorld(pl.worldName);
 			if (world != null && world[0] != null) {
-				player.switchWorlds(world[World.Dimension.NORMAL.toIndex()]);
+				WMEventManager.processWorldTeleport(player, pl.worldName);
 			} else {
 				WorldManager.mclogger.info("[WorldManager] Could not change the world of " + player.getName() + ", maybe " + pl.worldName + "is not existing anymore?");
 			}
